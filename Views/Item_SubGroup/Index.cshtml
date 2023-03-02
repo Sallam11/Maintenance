@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Maintenance.Models.Item_SubGroup>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table table-bordered table-hover table-condensed">
+    <thead class="info">
+
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ItemSubGroup_ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ItemGroup_IDFK)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ItemSubGroup_Name)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ItemSubGroup_ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ItemGroup_IDFK)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ItemSubGroup_Name)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

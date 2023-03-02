@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Maintenance.Models.User>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-info">Create New</a>
+</p>
+<table class="table table-bordered table-hover table-condensed">
+    <thead class="info">
+
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.User_ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmployeeID_FK)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User_Name)
+            </th>
+           
+           
+            <th>
+                @Html.DisplayNameFor(model => model.User_Active)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.User_ID)
+            </td>
+             <td>
+                    @Html.DisplayFor(modelItem => item.Employees.Employee_EngName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User_Active)
+            </td>
+            <td>
+                    @Html.ActionLink("Edit", "Edit", new {  id = item.User_ID  },htmlAttributes:new{@class="btn btn-info"}) |
+                    @Html.ActionLink("Details", "Details", new {  id=item.User_ID  },htmlAttributes:new{@class="btn btn-danger"})
+                    @Html.ActionLink("Delete", "Delete", new {  id=item.User_ID  },htmlAttributes:new{@class="btn btn-danger"})
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

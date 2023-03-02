@@ -1,0 +1,66 @@
+﻿@model IEnumerable<Maintenance.Models.Machine>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-info">Create New</a>
+</p>
+<table class="table table-bordered table-hover table-condensed">
+    <thead class="info">
+
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Machine_ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GroupID_FK)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SubGroupID_FK)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Machine_No)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Machine_Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Machine_PhotoPath)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Machine_ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Brand_Group.BarndGroup_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Brand_SubGroup.BarndSubgroup_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Machine_No)
+            </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Machine_Name)
+                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Machine_PhotoPath)
+            </td>
+            <td>
+                    @Html.ActionLink("Edit", "Edit", new {  id = item.Machine_ID  },htmlAttributes:new{@class="btn btn-info"}) |
+                    @Html.ActionLink("Details", "Details", new {  id=item.Machine_ID  },htmlAttributes:new{@class="btn btn-primary"})|
+                    @Html.ActionLink("Delete", "Delete", new {  id=item.Machine_ID  },htmlAttributes:new{@class="btn btn-danger"})
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,75 @@
+﻿@model IEnumerable<Machine_Movement>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-info">Create New</a>
+</p>
+<table class="table table-bordered table-hover table-condensed">
+    <thead class="info">
+
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MachineMovement_ID)
+            </th>
+            
+            <th>
+                @Html.DisplayNameFor(model => model.MachineMovement_Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmployeeID_FK)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MovementTypeID_FK)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MachineID_FK)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WorkTypeID_FK)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MachineMovement_Note)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MachineMovement_ID)
+            </td>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.MachineMovement_Date)
+            </td>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.Employee.Employee_EngName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Movement_Type.MovementType_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Machine.Machine_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Work_Type.WorkType_Name)
+            </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MachineMovement_Note)
+                </td>
+            <td>
+                    @Html.ActionLink("Edit", "Edit", new {  id = item.MachineMovement_ID  },htmlAttributes:new{@class="btn btn-info"}) |
+                    @Html.ActionLink("Details", "Details", new {  id=item.MachineMovement_ID  },htmlAttributes:new{@class="btn btn-primary"})|
+                    @Html.ActionLink("Delete", "Delete", new {  id=item.MachineMovement_ID  },htmlAttributes:new{@class="btn btn-danger"})
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

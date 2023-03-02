@@ -1,0 +1,59 @@
+﻿@model Maintenance.Models.Machine
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Machine</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Machine_ID" class="control-label"></label>
+                <input asp-for="Machine_ID" class="form-control" readonly />
+                <span asp-validation-for="Machine_ID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GroupID_FK" class="control-label"></label>
+                <select asp-for="GroupID_FK" class="form-control" asp-items="@(new SelectList( ViewBag.Brand_Groups, "BarndGroup_ID", "BarndGroup_Name"))"></select>
+                <span asp-validation-for="GroupID_FK" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SubGroupID_FK" class="control-label"></label>
+                <select asp-for="SubGroupID_FK" class="form-control" asp-items="@(new SelectList( ViewBag.Brand_SubGroups, "BarndSubgroup_ID", "BarndSubgroup_Name"))"></select>
+                <span asp-validation-for="SubGroupID_FK" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Machine_No" class="control-label"></label>
+                <input asp-for="Machine_No" class="form-control" readonly />
+                <span asp-validation-for="Machine_No" class="text-danger"></span>
+            </div>
+
+             <div class="form-group">
+                <label asp-for="Machine_Name" class="control-label"></label>
+                <input asp-for="Machine_Name" class="form-control"  />
+                <span asp-validation-for="Machine_Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Machine_PhotoPath" class="control-label"></label>
+                <input asp-for="Machine_PhotoPath" class="form-control" />
+                <span asp-validation-for="Machine_PhotoPath" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

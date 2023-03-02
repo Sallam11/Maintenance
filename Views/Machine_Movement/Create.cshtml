@@ -1,0 +1,61 @@
+﻿@model Machine_Movement
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Machine_Movement</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+           
+            <div class="form-group">
+                <label asp-for="MachineMovement_Date" class="control-label"></label>
+                <input asp-for="MachineMovement_Date" class="form-control" />
+                <span asp-validation-for="MachineMovement_Date" class="text-danger"></span>
+            </div>
+           
+            <div class="form-group">
+                <label asp-for="EmployeeID_FK" class="control-label"></label>
+                <select asp-for="EmployeeID_FK" class="form-control" asp-items="@(new SelectList( ViewBag.Employees, "Employee_ID", "Employee_EngName"))"></select>
+                <span asp-validation-for="EmployeeID_FK" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="MachineID_FK" class="control-label"></label>
+                <select asp-for="MachineID_FK" class="form-control" asp-items="@(new SelectList( ViewBag.Machines, "Machine_ID", "Machine_Name"))"></select>
+                <span asp-validation-for="MachineID_FK" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MovementTypeID_FK" class="control-label"></label>
+                <select asp-for="MovementTypeID_FK" class="form-control" asp-items="@(new SelectList( ViewBag.Movement_Types, "MovementType_ID", "MovementType_Name"))"></select>
+                <span asp-validation-for="MovementTypeID_FK" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WorkTypeID_FK" class="control-label"></label>
+                <select asp-for="WorkTypeID_FK" class="form-control" asp-items="@(new SelectList( ViewBag.Work_Types, "WorkType_ID", "WorkType_Name"))"></select>
+                <span asp-validation-for="WorkTypeID_FK" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MachineMovement_Note" class="control-label"></label>
+                 <textarea asp-for="MachineMovement_Note" class="form-control" ></textarea>
+                <span asp-validation-for="MachineMovement_Note" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
