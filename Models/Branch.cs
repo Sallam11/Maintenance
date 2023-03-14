@@ -11,11 +11,11 @@ namespace Maintenance.Models
 
         [DisplayName("Code")]
         public int Branch_ID { get; set; }
-
+        [StringLength(50)]
         [DisplayName("Branch ar Name")]
         public string Branch_ArName { get; set; } = string.Empty;
 
-
+        [StringLength(50)]
         [DisplayName("Branch Eng Name")]
         public string Branch_EngName { get; set; } = string.Empty;
     }

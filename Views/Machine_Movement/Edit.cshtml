@@ -42,9 +42,9 @@
                 <span asp-validation-for="MovementTypeID_FK" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="WorkTypeID_FK" class="control-label"></label>
-                <select asp-for="WorkTypeID_FK" class="form-control" asp-items="@(new SelectList( ViewBag.Work_Types, "WorkType_ID", "WorkType_Name"))"></select>
-                <span asp-validation-for="WorkTypeID_FK" class="text-danger"></span>
+                <label asp-for="OrdersStatusID_FK" class="control-label"></label>
+                <select asp-for="OrdersStatusID_FK" class="form-control" asp-items="@(new SelectList( ViewBag.OrdersStatuss, "OrdersStatus_ID", "OrdersStatus_Name"))"></select>
+                <span asp-validation-for="OrdersStatusID_FK" class="text-danger"></span>
             </div>
 
             <div class="form-group">

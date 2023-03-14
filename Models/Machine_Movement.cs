@@ -36,8 +36,8 @@ public class Machine_Movement
     [ForeignKey(nameof(MachineID_FK))]
     public Machine? Machine { get; set; }
     [DisplayName("Work Type")]
-    public int WorkTypeID_FK { get; set; }
-    [ForeignKey(nameof(WorkTypeID_FK))]
-    public Work_Type? Work_Type { get; set; }
+    public int OrdersStatusID_FK { get; set; }
+    [ForeignKey(nameof(OrdersStatusID_FK))]
+    public OrdersStatus? OrdersStatus { get; set; }
     
 }

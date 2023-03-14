@@ -1,36 +1,36 @@
-﻿@model IEnumerable<Maintenance.Models.Movement_Type>
+﻿@model IEnumerable<Maintenance.Models.OrdersStatus>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h4>Movement Type</h4>
+<h4>Order status</h4>
 
 <p>
     <a asp-action="Create" class="btn btn-info">Create New</a>
 </p>
 <table class="table table-bordered table-hover table-condensed">
     <thead class="table-Primary">
-
-        <tr>
+        <tr >
             <th>
-                @Html.DisplayNameFor(model => model.MovementType_ID)
+                @Html.DisplayNameFor(model => model.OrdersStatus_ID)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MovementType_Name)
+                @Html.DisplayNameFor(model => model.OrdersStatus_Name)
             </th>
-            
+           
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.MovementType_ID)
+                @Html.DisplayFor(modelItem => item.OrdersStatus_ID)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.MovementType_Name)
+                @Html.DisplayFor(modelItem => item.OrdersStatus_Name)
             </td>
+           
         </tr>
 }
     </tbody>

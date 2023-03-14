@@ -4,7 +4,7 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h4>Create</h4>
 
 <h4>Machine</h4>
 <hr />
@@ -15,29 +15,25 @@
 
             <div class="form-group">
                 <label asp-for="GroupID_FK" class="control-label"></label>
-                <select asp-for="GroupID_FK" class="form-control" asp-items="@(new SelectList( ViewBag.Brand_Groups, "BarndGroup_ID", "BarndGroup_Name"))"></select>
+                <select asp-for="GroupID_FK" class="form-control" asp-items="@(new SelectList( ViewBag.Brand_Groups, "Barnd_ID", "Barnd_Name"))"></select>
                 <span asp-validation-for="GroupID_FK" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="SubGroupID_FK" class="control-label"></label>
-                <select asp-for="SubGroupID_FK" class="form-control" asp-items="@(new SelectList( ViewBag.Brand_SubGroups, "BarndSubgroup_ID", "BarndSubgroup_Name"))"></select>
+                <select asp-for="SubGroupID_FK" class="form-control" asp-items="@(new SelectList( ViewBag.Models, "Model_ID", "Model_Name"))"></select>
                 <span asp-validation-for="SubGroupID_FK" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Machine_No" class="control-label"></label>
-                <input asp-for="Machine_No" class="form-control" />
-                <span asp-validation-for="Machine_No" class="text-danger"></span>
+                <label asp-for="Machine_Code" class="control-label"></label>
+                <input asp-for="Machine_Code" class="form-control" />
+                <span asp-validation-for="Machine_Code" class="text-danger"></span>
             </div>
 
+           
             <div class="form-group">
-                <label asp-for="Machine_Name" class="control-label"></label>
-                <input asp-for="Machine_Name" class="form-control" />
-                <span asp-validation-for="Machine_Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Machine_PhotoPath" class="control-label"></label>
-                <input asp-for="Machine_PhotoPath" class="form-control" />
-                <span asp-validation-for="Machine_PhotoPath" class="text-danger"></span>
+                <label asp-for="Machine_ImageURL" class="control-label"></label>
+                <input asp-for="Machine_ImageURL" class="form-control" />
+                <span asp-validation-for="Machine_ImageURL" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

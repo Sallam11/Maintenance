@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Maintenance.Migrations
 {
     [DbContext(typeof(MaintenanceDbContext))]
-    [Migration("20230301142400_01")]
+    [Migration("20230314142044_01")]
     partial class _01
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -60,7 +60,7 @@ namespace Maintenance.Migrations
                     b.Property<int>("MovementTypeID_FK")
                         .HasColumnType("int");
 
-                    b.Property<int>("WorkTypeID_FK")
+                    b.Property<int>("OrdersStatusID_FK")
                         .HasColumnType("int");
 
                     b.HasKey("MachineMovement_ID");
@@ -71,7 +71,7 @@ namespace Maintenance.Migrations
 
                     b.HasIndex("MovementTypeID_FK");
 
-                    b.HasIndex("WorkTypeID_FK");
+                    b.HasIndex("OrdersStatusID_FK");
 
                     b.ToTable("Machine_Movements");
                 });
@@ -86,56 +86,58 @@ namespace Maintenance.Migrations
 
                     b.Property<string>("Branch_ArName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Branch_EngName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Branch_ID");
 
-                    b.ToTable("Branch");
+                    b.ToTable("Branchs");
                 });
 
-            modelBuilder.Entity("Maintenance.Models.Brand_Group", b =>
+            modelBuilder.Entity("Maintenance.Models.Brand", b =>
                 {
-                    b.Property<int>("BarndGroup_ID")
+                    b.Property<int>("Barnd_ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BarndGroup_ID"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Barnd_ID"), 1L, 1);
 
-                    b.Property<string>("BarndGroup_Name")
+                    b.Property<string>("Barnd_Name")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.HasKey("BarndGroup_ID");
+                    b.Property<int>("MachineSubgroup_IDFK")
+                        .HasColumnType("int");
 
-                    b.ToTable("Brand_Groups");
+                    b.HasKey("Barnd_ID");
+
+                    b.HasIndex("MachineSubgroup_IDFK");
+
+                    b.ToTable("Brands");
                 });
 
-            modelBuilder.Entity("Maintenance.Models.Brand_SubGroup", b =>
+            modelBuilder.Entity("Maintenance.Models.DrivingLicense", b =>
                 {
-                    b.Property<int>("BarndSubgroup_ID")
+                    b.Property<int>("DrivingLicense_ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BarndSubgroup_ID"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DrivingLicense_ID"), 1L, 1);
 
-                    b.Property<int>("BarndGroup_IDFK")
-                        .HasColumnType("int");
-
-                    b.Property<string>("BarndSubgroup_Name")
+                    b.Property<string>("DrivingLicense_Name")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.HasKey("BarndSubgroup_ID");
+                    b.HasKey("DrivingLicense_ID");
 
-                    b.HasIndex("BarndGroup_IDFK");
-
-                    b.ToTable("Brand_SubGroups");
+                    b.ToTable("DrivingLicenses");
                 });
 
             modelBuilder.Entity("Maintenance.Models.Employee", b =>
@@ -146,18 +148,30 @@ namespace Maintenance.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Employee_ID"), 1L, 1);
 
+                    b.Property<int>("BranchID_FK")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DrivingLicenseID_FK")
+                        .HasColumnType("int");
+
                     b.Property<string>("Employee_ArName")
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<int>("Employee_BranchID")
-                        .HasColumnType("int");
-
                     b.Property<string>("Employee_EngName")
                         .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("Employee_ImageURL")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Employee_Iqama")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("Employee_No")
                         .IsRequired()
@@ -169,19 +183,21 @@ namespace Maintenance.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<int>("Employee_ProfessionID")
+                    b.Property<int>("PlaceOfWorkID_FK")
                         .HasColumnType("int");
 
-                    b.Property<string>("Employee_iqama")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                    b.Property<int>("ProfessionID_FK")
+                        .HasColumnType("int");
 
                     b.HasKey("Employee_ID");
 
-                    b.HasIndex("Employee_BranchID");
+                    b.HasIndex("BranchID_FK");
 
-                    b.HasIndex("Employee_ProfessionID");
+                    b.HasIndex("DrivingLicenseID_FK");
+
+                    b.HasIndex("PlaceOfWorkID_FK");
+
+                    b.HasIndex("ProfessionID_FK");
 
                     b.ToTable("Employees");
                 });
@@ -268,32 +284,121 @@ namespace Maintenance.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Machine_ID"), 1L, 1);
 
+                    b.Property<int>("BrandID_FK")
+                        .HasColumnType("int");
+
                     b.Property<int>("GroupID_FK")
                         .HasColumnType("int");
 
-                    b.Property<string>("Machine_Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Machine_No")
+                    b.Property<string>("Machine_Code")
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<string>("Machine_PhotoPath")
+                    b.Property<string>("Machine_ImageURL")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Machine_Note")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Machine_PlateNo")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Machine_SerialNo")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<int>("ModelID_FK")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OwnerID_FK")
+                        .HasColumnType("int");
 
                     b.Property<int>("SubGroupID_FK")
                         .HasColumnType("int");
 
                     b.HasKey("Machine_ID");
 
+                    b.HasIndex("BrandID_FK");
+
                     b.HasIndex("GroupID_FK");
+
+                    b.HasIndex("ModelID_FK");
+
+                    b.HasIndex("OwnerID_FK");
 
                     b.HasIndex("SubGroupID_FK");
 
                     b.ToTable("Machines");
+                });
+
+            modelBuilder.Entity("Maintenance.Models.Machine_Group", b =>
+                {
+                    b.Property<int>("MachineGroup_ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MachineGroup_ID"), 1L, 1);
+
+                    b.Property<string>("MachineGroup_Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("MachineGroup_ID");
+
+                    b.ToTable("Machine_Groups");
+                });
+
+            modelBuilder.Entity("Maintenance.Models.Machine_SubGroup", b =>
+                {
+                    b.Property<int>("MachineSubgroup_ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MachineSubgroup_ID"), 1L, 1);
+
+                    b.Property<int>("MachineGroup_IDFK")
+                        .HasColumnType("int");
+
+                    b.Property<string>("MachineSubgroup_Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("MachineSubgroup_ID");
+
+                    b.HasIndex("MachineGroup_IDFK");
+
+                    b.ToTable("Machine_SubGroups");
+                });
+
+            modelBuilder.Entity("Maintenance.Models.Model", b =>
+                {
+                    b.Property<int>("Model_ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Model_ID"), 1L, 1);
+
+                    b.Property<int>("Barnd_IDFK")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Model_Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Model_ID");
+
+                    b.HasIndex("Barnd_IDFK");
+
+                    b.ToTable("Models");
                 });
 
             modelBuilder.Entity("Maintenance.Models.Movement_Type", b =>
@@ -314,6 +419,60 @@ namespace Maintenance.Migrations
                     b.ToTable("Movement_Types");
                 });
 
+            modelBuilder.Entity("Maintenance.Models.OrdersStatus", b =>
+                {
+                    b.Property<int>("OrdersStatus_ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrdersStatus_ID"), 1L, 1);
+
+                    b.Property<string>("OrdersStatus_Name")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.HasKey("OrdersStatus_ID");
+
+                    b.ToTable("OrdersStatuss");
+                });
+
+            modelBuilder.Entity("Maintenance.Models.Owner", b =>
+                {
+                    b.Property<int>("Owner_ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Owner_ID"), 1L, 1);
+
+                    b.Property<string>("Owner_ArName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Owner_ID");
+
+                    b.ToTable("Owners");
+                });
+
+            modelBuilder.Entity("Maintenance.Models.PlaceOfWork", b =>
+                {
+                    b.Property<int>("PlaceOfWork_ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PlaceOfWork_ID"), 1L, 1);
+
+                    b.Property<string>("PlaceOfWork_Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("PlaceOfWork_ID");
+
+                    b.ToTable("PlaceOfWork");
+                });
+
             modelBuilder.Entity("Maintenance.Models.Profession", b =>
                 {
                     b.Property<int>("Profession_ID")
@@ -324,11 +483,13 @@ namespace Maintenance.Migrations
 
                     b.Property<string>("Profession_ArName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Profession_EngName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Profession_ID");
 
@@ -366,24 +527,6 @@ namespace Maintenance.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Maintenance.Models.Work_Type", b =>
-                {
-                    b.Property<int>("WorkType_ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("WorkType_ID"), 1L, 1);
-
-                    b.Property<string>("WorkType_Name")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.HasKey("WorkType_ID");
-
-                    b.ToTable("Work_Types");
-                });
-
             modelBuilder.Entity("Machine_Movement", b =>
                 {
                     b.HasOne("Maintenance.Models.Employee", "Employee")
@@ -404,9 +547,9 @@ namespace Maintenance.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Maintenance.Models.Work_Type", "Work_Type")
+                    b.HasOne("Maintenance.Models.OrdersStatus", "OrdersStatus")
                         .WithMany()
-                        .HasForeignKey("WorkTypeID_FK")
+                        .HasForeignKey("OrdersStatusID_FK")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -416,35 +559,51 @@ namespace Maintenance.Migrations
 
                     b.Navigation("Movement_Type");
 
-                    b.Navigation("Work_Type");
+                    b.Navigation("OrdersStatus");
                 });
 
-            modelBuilder.Entity("Maintenance.Models.Brand_SubGroup", b =>
+            modelBuilder.Entity("Maintenance.Models.Brand", b =>
                 {
-                    b.HasOne("Maintenance.Models.Brand_Group", "Brand_Groups")
+                    b.HasOne("Maintenance.Models.Machine_SubGroup", "Machine_SubGroup")
                         .WithMany()
-                        .HasForeignKey("BarndGroup_IDFK")
+                        .HasForeignKey("MachineSubgroup_IDFK")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Brand_Groups");
+                    b.Navigation("Machine_SubGroup");
                 });
 
             modelBuilder.Entity("Maintenance.Models.Employee", b =>
                 {
                     b.HasOne("Maintenance.Models.Branch", "Branchs")
                         .WithMany()
-                        .HasForeignKey("Employee_BranchID")
+                        .HasForeignKey("BranchID_FK")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Maintenance.Models.DrivingLicense", "DrivingLicenses")
+                        .WithMany()
+                        .HasForeignKey("DrivingLicenseID_FK")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Maintenance.Models.PlaceOfWork", "PlaceOfWorks")
+                        .WithMany()
+                        .HasForeignKey("PlaceOfWorkID_FK")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Maintenance.Models.Profession", "Professions")
                         .WithMany()
-                        .HasForeignKey("Employee_ProfessionID")
+                        .HasForeignKey("ProfessionID_FK")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Branchs");
+
+                    b.Navigation("DrivingLicenses");
+
+                    b.Navigation("PlaceOfWorks");
 
                     b.Navigation("Professions");
                 });
@@ -481,21 +640,67 @@ namespace Maintenance.Migrations
 
             modelBuilder.Entity("Maintenance.Models.Machine", b =>
                 {
-                    b.HasOne("Maintenance.Models.Brand_Group", "Brand_Group")
+                    b.HasOne("Maintenance.Models.Brand", "Brands")
+                        .WithMany()
+                        .HasForeignKey("BrandID_FK")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Maintenance.Models.Machine_Group", "Machine_Groups")
                         .WithMany()
                         .HasForeignKey("GroupID_FK")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Maintenance.Models.Brand_SubGroup", "Brand_SubGroup")
+                    b.HasOne("Maintenance.Models.Model", "Models")
+                        .WithMany()
+                        .HasForeignKey("ModelID_FK")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Maintenance.Models.Owner", "Owners")
+                        .WithMany()
+                        .HasForeignKey("OwnerID_FK")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Maintenance.Models.Machine_SubGroup", "Machine_SubGroups")
                         .WithMany()
                         .HasForeignKey("SubGroupID_FK")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Brand_Group");
+                    b.Navigation("Brands");
 
-                    b.Navigation("Brand_SubGroup");
+                    b.Navigation("Machine_Groups");
+
+                    b.Navigation("Machine_SubGroups");
+
+                    b.Navigation("Models");
+
+                    b.Navigation("Owners");
+                });
+
+            modelBuilder.Entity("Maintenance.Models.Machine_SubGroup", b =>
+                {
+                    b.HasOne("Maintenance.Models.Machine_Group", "Brand_Groups")
+                        .WithMany()
+                        .HasForeignKey("MachineGroup_IDFK")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Brand_Groups");
+                });
+
+            modelBuilder.Entity("Maintenance.Models.Model", b =>
+                {
+                    b.HasOne("Maintenance.Models.Brand", "Brand_Groups")
+                        .WithMany()
+                        .HasForeignKey("Barnd_IDFK")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Brand_Groups");
                 });
 
             modelBuilder.Entity("Maintenance.Models.User", b =>

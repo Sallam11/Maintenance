@@ -1,12 +1,12 @@
-﻿@model Maintenance.Models.Brand_Group
+﻿@model Maintenance.Models.Brand
 
 @{
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h4>Create</h4>
 
-<h4>Brand_Group</h4>
+<h4>Machine Group </h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -14,9 +14,9 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             
             <div class="form-group">
-                <label asp-for="BarndGroup_Name" class="control-label"></label>
-                <input asp-for="BarndGroup_Name" class="form-control" />
-                <span asp-validation-for="BarndGroup_Name" class="text-danger"></span>
+                <label asp-for="Barnd_Name" class="control-label"></label>
+                <input asp-for="Barnd_Name" class="form-control" />
+                <span asp-validation-for="Barnd_Name" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

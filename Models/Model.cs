@@ -6,20 +6,20 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Maintenance.Models
 {
-    public class Brand_SubGroup
+    public class Model
     {
         [Key]
         [DisplayName("Code")]
-        public int BarndSubgroup_ID { get; set; }
+        public int Model_ID { get; set; }
         [Required]
         [StringLength(50,MinimumLength =2)]
         [DisplayName("Sub Group Name")]
-        public string BarndSubgroup_Name { get; set; } = string.Empty;
+        public string Model_Name { get; set; } = string.Empty;
         [DisplayName("Group Name")]
-        public int BarndGroup_IDFK { get; set; } 
+        public int Barnd_IDFK { get; set; } 
 
-        [ForeignKey(nameof(BarndGroup_IDFK))]
-        public Brand_Group? Brand_Groups { get; set; }
+        [ForeignKey(nameof(Barnd_IDFK))]
+        public Brand? Brand_Groups { get; set; }
 
     }
 }

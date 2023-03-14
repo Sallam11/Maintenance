@@ -19,37 +19,32 @@
             @Html.DisplayFor(model => model.Machine_ID)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Machine_No)
+            @Html.DisplayNameFor(model => model.Machine_Code)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Machine_No)
+            @Html.DisplayFor(model => model.Machine_Code)
         </dd>
          <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.GroupID_FK)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Brand_Group.BarndGroup_Name)
+            @Html.DisplayFor(model => model.Brands.Barnd_Name)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.SubGroupID_FK)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Brand_SubGroup.BarndSubgroup_Name)
+            @Html.DisplayFor(model => model.Models.Model_Name)
         </dd>
        
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Machine_Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Machine_Name)
-        </dd>
-        @if(Model.Machine_PhotoPath !=null)
+        
+        @if(Model.Machine_ImageURL !=null)
             {
             <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Machine_PhotoPath)
+            @Html.DisplayNameFor(model => model.Machine_ImageURL)
             </dt>
              <dd class = "col-sm-10">
-                <img src="~/Upload/Machine/@Model.Machine_PhotoPath" style="width:128px;" class="img-thumbnail" />
+                <img src="~/Upload/Machine/@Model.Machine_ImageURL" style="width:128px;" class="img-thumbnail" />
              </dd>
            }
        

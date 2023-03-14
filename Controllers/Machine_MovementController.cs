@@ -17,7 +17,7 @@ namespace Maintenance.Controllers
 
         public ActionResult Index()
         {
-            var _var = _db.Machine_Movements.Include(x => x.Work_Type)
+            var _var = _db.Machine_Movements.Include(x => x.OrdersStatus)
                                              .Include(x => x.Movement_Type)
                                              .Include(x => x.Machine)
                                              .Include(x => x.Employee).ToList();
@@ -36,7 +36,7 @@ namespace Maintenance.Controllers
             ViewBag.Employees = _db.Employees.ToList();
             ViewBag.Machines = _db.Machines.ToList();
             ViewBag.Movement_Types = _db.Movement_Types.ToList();
-            ViewBag.Work_Types = _db.Work_Types.ToList();
+            ViewBag.OrdersStatuss = _db.OrdersStatuss.ToList();
             return View();
         }
 
@@ -66,7 +66,7 @@ namespace Maintenance.Controllers
             ViewBag.Employees = _db.Employees.ToList();
             ViewBag.Machines = _db.Machines.ToList();
             ViewBag.Movement_Types = _db.Movement_Types.ToList();
-            ViewBag.Work_Types = _db.Work_Types.ToList();
+            ViewBag.OrdersStatuss = _db.OrdersStatuss.ToList();
             var _var = _db.Machine_Movements.FirstOrDefault(x => x.MachineMovement_ID == id);
             return View(_var);
         }

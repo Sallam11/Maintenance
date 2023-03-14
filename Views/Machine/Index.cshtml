@@ -10,7 +10,7 @@
     <a asp-action="Create" class="btn btn-info">Create New</a>
 </p>
 <table class="table table-bordered table-hover table-condensed">
-    <thead class="info">
+    <thead class="table-Primary">
 
         <tr>
             <th>
@@ -23,13 +23,11 @@
                 @Html.DisplayNameFor(model => model.SubGroupID_FK)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Machine_No)
+                @Html.DisplayNameFor(model => model.Machine_Code)
             </th>
+            
             <th>
-                @Html.DisplayNameFor(model => model.Machine_Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Machine_PhotoPath)
+                @Html.DisplayNameFor(model => model.Machine_ImageURL)
             </th>
             <th></th>
         </tr>
@@ -41,19 +39,17 @@
                 @Html.DisplayFor(modelItem => item.Machine_ID)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Brand_Group.BarndGroup_Name)
+                @Html.DisplayFor(modelItem => item.Brands.Barnd_Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Brand_SubGroup.BarndSubgroup_Name)
+                    @Html.DisplayFor(modelItem => item.Models.Model_Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Machine_No)
+                @Html.DisplayFor(modelItem => item.Machine_Code)
             </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Machine_Name)
-                </td>
+               
             <td>
-                @Html.DisplayFor(modelItem => item.Machine_PhotoPath)
+                @Html.DisplayFor(modelItem => item.Machine_ImageURL)
             </td>
             <td>
                     @Html.ActionLink("Edit", "Edit", new {  id = item.Machine_ID  },htmlAttributes:new{@class="btn btn-info"}) |

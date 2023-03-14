@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Maintenance.Models.Model>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h4>Machine-Sub Group</h4>
+
+<p>
+    <a asp-action="Create" class="btn btn-info">Create New</a>
+</p>
+<table class="table table-bordered table-hover table-condensed">
+    <thead class="table-Primary">
+
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Model_ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Barnd_IDFK)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Model_Name)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Model_ID)
+            </td>
+                 <td>
+                    @Html.DisplayFor(modelItem => item.Brand_Groups.Barnd_Name)
+                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Model_Name)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

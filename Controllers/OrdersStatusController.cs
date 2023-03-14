@@ -1,53 +1,47 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Maintenance.Data;
 using Maintenance.Models;
 
 namespace Maintenance.Controllers
 {
-    public class MachineController : Controller
+    public class OrdersStatusController : Controller
     {
-        // GET: MachineController
+
         private readonly MaintenanceDbContext _db;
 
-        public MachineController(MaintenanceDbContext context)
+        public OrdersStatusController(MaintenanceDbContext context)
         {
             _db = context;
         }
-
+        
+        // GET: Work_TypeController
         public ActionResult Index()
         {
-            var _Var = _db.Machines.Include(s => s.Brands).Include(x => x.Models).ToList();
-            return View(_Var);
+            var _var = _db.OrdersStatuss.ToList();
+            return View(_var);
         }
-    
 
-        // GET: MachineController/Details/5
+        // GET: Work_TypeController/Details/5
         public ActionResult Details(int id)
         {
-            var _var = _db.Machines.FirstOrDefault(x => x.Machine_ID == id);
-            return View(_var);
+            return View();
         }
 
-        // GET: MachineController/Create
+        // GET: Work_TypeController/Create
         public ActionResult Create()
         {
-
-            ViewBag.Brand_Groups = _db.Brands.ToList();
-            ViewBag.Models = _db.Models.ToList();
             return View();
-           
         }
 
-        // POST: MachineController/Create
+        // POST: Work_TypeController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Machine collection)
+        public ActionResult Create(OrdersStatus collection)
         {
             try
             {
-                var _var = _db.Machines.Add(collection);
+                var _var = _db.OrdersStatuss.Add(collection);
                 _db.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
@@ -57,25 +51,19 @@ namespace Maintenance.Controllers
             }
         }
 
-        // GET: MachineController/Edit/5
+        // GET: Work_TypeController/Edit/5
         public ActionResult Edit(int id)
         {
-            ViewBag.Brand_Groups = _db.Brands.ToList();
-            ViewBag.Models = _db.Models.ToList();
-            var _var = _db.Machines.FirstOrDefault(x => x.Machine_ID == id);
-            return View(_var);
+            return View();
         }
 
-        // POST: MachineController/Edit/5
+        // POST: Work_TypeController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, Machine collection)
+        public ActionResult Edit(int id, IFormCollection collection)
         {
             try
             {
-
-                _db.Machines.Update(collection);
-                _db.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -84,13 +72,13 @@ namespace Maintenance.Controllers
             }
         }
 
-        // GET: MachineController/Delete/5
+        // GET: Work_TypeController/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: MachineController/Delete/5
+        // POST: Work_TypeController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)

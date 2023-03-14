@@ -5,43 +5,42 @@ using Maintenance.Models;
 
 namespace Maintenance.Controllers
 {
-    public class Work_TypeController : Controller
+    public class Machine_GroupController : Controller
     {
-
+        // GET: Machine_GroupController
         private readonly MaintenanceDbContext _db;
 
-        public Work_TypeController(MaintenanceDbContext context)
+        public Machine_GroupController(MaintenanceDbContext context)
         {
             _db = context;
         }
-        
-        // GET: Work_TypeController
+
         public ActionResult Index()
         {
-            var _var = _db.Work_Types.ToList();
+            var _var = _db.Machine_Groups.ToList();
             return View(_var);
         }
 
-        // GET: Work_TypeController/Details/5
+        // GET: Machine_GroupController/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: Work_TypeController/Create
+        // GET: Machine_GroupController/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Work_TypeController/Create
+        // POST: Machine_GroupController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Work_Type collection)
+        public ActionResult Create(Machine_Group collection)
         {
             try
             {
-                var _var = _db.Work_Types.Add(collection);
+                var _var = _db.Machine_Groups.Add(collection);
                 _db.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
@@ -51,13 +50,14 @@ namespace Maintenance.Controllers
             }
         }
 
-        // GET: Work_TypeController/Edit/5
+        // GET: Machine_GroupController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var _var = _db.Machine_Groups.FirstOrDefault(x => x.MachineGroup_ID ==id);
+            return View(_var);
         }
 
-        // POST: Work_TypeController/Edit/5
+        // POST: Machine_GroupController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
@@ -72,13 +72,13 @@ namespace Maintenance.Controllers
             }
         }
 
-        // GET: Work_TypeController/Delete/5
+        // GET: Machine_GroupController/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: Work_TypeController/Delete/5
+        // POST: Machine_GroupController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)

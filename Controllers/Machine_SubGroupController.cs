@@ -1,46 +1,53 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Maintenance.Data;
 using Maintenance.Models;
 
 namespace Maintenance.Controllers
 {
-    public class Brand_GroupController : Controller
+    public class Machine_SubGroupController : Controller
     {
-        // GET: Brand_GroupController
+        // GET: Machine_SubGroupController
         private readonly MaintenanceDbContext _db;
 
-        public Brand_GroupController(MaintenanceDbContext context)
+        public Machine_SubGroupController(MaintenanceDbContext context)
         {
             _db = context;
         }
 
         public ActionResult Index()
         {
-            var _var = _db.Brand_Groups.ToList();
-            return View(_var);
+          
+
+            //var _Var = _db.Machine_SubGroups.Include(s => s.Machine_Groups).ToList();
+
+
+
+            return View();
         }
 
-        // GET: Brand_GroupController/Details/5
+        // GET: Machine_SubGroupController/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: Brand_GroupController/Create
+        // GET: Machine_SubGroupController/Create
         public ActionResult Create()
         {
+            ViewBag.Machine_Groups = _db.Machine_Groups.ToList();
             return View();
         }
 
-        // POST: Brand_GroupController/Create
+        // POST: Machine_SubGroupController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Brand_Group collection)
+        public ActionResult Create(Machine_SubGroup collection)
         {
             try
             {
-                var _var = _db.Brand_Groups.Add(collection);
+                var _var = _db.Machine_SubGroups.Add(collection);
                 _db.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
@@ -50,14 +57,13 @@ namespace Maintenance.Controllers
             }
         }
 
-        // GET: Brand_GroupController/Edit/5
+        // GET: Machine_SubGroupController/Edit/5
         public ActionResult Edit(int id)
         {
-            var _var = _db.Brand_Groups.FirstOrDefault(x => x.BarndGroup_ID ==id);
-            return View(_var);
+            return View();
         }
 
-        // POST: Brand_GroupController/Edit/5
+        // POST: Machine_SubGroupController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
@@ -72,13 +78,13 @@ namespace Maintenance.Controllers
             }
         }
 
-        // GET: Brand_GroupController/Delete/5
+        // GET: Machine_SubGroupController/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: Brand_GroupController/Delete/5
+        // POST: Machine_SubGroupController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
