@@ -4,19 +4,31 @@
     ViewData["Title"] = "Create";
 }
 
-<h4>Create</h4>
+<div class="text-center">
+    <h2 style="color:dodgerblue">Machine</h2>
+</div>
+<h4 style="color:brown">Create</h4>
 
-<h4>Machine Group </h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            
+           
             <div class="form-group">
-                <label asp-for="Barnd_Name" class="control-label"></label>
-                <input asp-for="Barnd_Name" class="form-control" />
-                <span asp-validation-for="Barnd_Name" class="text-danger"></span>
+                <label asp-for="MachineGroupIDFK" class="control-label"></label>
+                <select asp-for="MachineGroupIDFK" class="form-control" asp-items="@(new SelectList( ViewBag.MachineGroups, "MachineGroup_ID", "MachineGroup_Name"))"></select>
+                <span asp-validation-for="MachineGroupIDFK" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MachineSubGroupIDFK" class="control-label"></label>
+                <select asp-for="MachineSubGroupIDFK" class="form-control" asp-items="@(new SelectList( ViewBag.MachineSubGroups, "MachineSubgroup_ID", "MachineSubgroup_Name"))"></select>
+                <span asp-validation-for="MachineSubGroupIDFK" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Brand_Name" class="control-label"></label>
+                <input asp-for="Brand_Name" class="form-control" />
+                <span asp-validation-for="Brand_Name" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

@@ -1,0 +1,32 @@
+﻿@model Maintenance.Models.OperatingCard
+
+@{
+    ViewData["Title"] = "Delete";
+}
+<div class="text-center">
+    <h2 style="color:dodgerblue">Operating Card</h2>
+</div>
+<h5 style="color:red" >Are you sure you want to delete this?</h5>
+<div>
+  
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.OperatingCard_ID)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.OperatingCard_ID)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.OperatingCard_ArName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.OperatingCard_ArName)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

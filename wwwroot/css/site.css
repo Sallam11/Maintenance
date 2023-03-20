@@ -16,3 +16,11 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+#projectTable tr {
+    /*font-size: 10px;
+    line-height: 10px;
+    border: none;
+    padding-bottom: 6px;*/
+    height: 5px;
+}

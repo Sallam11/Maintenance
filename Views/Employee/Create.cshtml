@@ -4,9 +4,11 @@
     ViewData["Title"] = "Create";
 }
 
-<h4>Create</h4>
+<div class="text-center">
+    <h2 style="color:dodgerblue">Employee</h2>
+</div>
+<h4 style="color:brown">Create</h4>
 
-<h4>Employee</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -34,6 +36,37 @@
                 <span asp-validation-for="Employee_Phone" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Employee_Iqama" class="control-label"></label>
+                <input asp-for="Employee_Iqama" class="form-control" />
+                <span asp-validation-for="Employee_Iqama" class="text-danger"></span>
+            </div>
+          
+            <div class="form-group">
+                <label asp-for="BranchIDFK" class="control-label"></label>
+                <select asp-for="BranchIDFK" class="form-control" asp-items="@(new SelectList( ViewBag.Branchs, "Branch_ID", "Branch_ArName"))"></select>
+                <span asp-validation-for="BranchIDFK" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProfessionIDFK" class="control-label"></label>
+                <select asp-for="ProfessionIDFK" class="form-control" asp-items="@(new SelectList( ViewBag.Professions, "Profession_ID", "Profession_ArName"))"></select>
+                <span asp-validation-for="ProfessionIDFK" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DrivingLicenseIDFK" class="control-label"></label>
+                <select asp-for="DrivingLicenseIDFK" class="form-control" asp-items="@(new SelectList( ViewBag.DrivingLicenses, "DrivingLicense_ID", "DrivingLicense_Name"))"></select>
+                <span asp-validation-for="DrivingLicenseIDFK" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PlaceOfWorkIDFK" class="control-label"></label>
+                <select asp-for="PlaceOfWorkIDFK" class="form-control" asp-items="@(new SelectList( ViewBag.PlaceOfWorks, "PlaceOfWork_ID", "PlaceOfWork_Name"))"></select>
+                <span asp-validation-for="PlaceOfWorkIDFK" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Employee_ImageURL" class="control-label"></label>
+               @* <input type="file" name="File" asp-for="File" class="form-control" />*@
+                <span asp-validation-for="Employee_ImageURL" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
@@ -47,3 +80,6 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+
+               

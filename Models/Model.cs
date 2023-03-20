@@ -1,4 +1,4 @@
-﻿using Microsoft.CodeAnalysis.VisualBasic.Syntax;
+﻿
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -13,13 +13,14 @@ namespace Maintenance.Models
         public int Model_ID { get; set; }
         [Required]
         [StringLength(50,MinimumLength =2)]
-        [DisplayName("Sub Group Name")]
+        [DisplayName("Model")]
         public string Model_Name { get; set; } = string.Empty;
-        [DisplayName("Group Name")]
-        public int Barnd_IDFK { get; set; } 
+        [DisplayName("Brand")]
+        public int BarndIDFK { get; set; }
 
-        [ForeignKey(nameof(Barnd_IDFK))]
-        public Brand? Brand_Groups { get; set; }
+        [ForeignKey(nameof(BarndIDFK))]
+        public Brand? Brands { get; set; }
+
 
     }
 }

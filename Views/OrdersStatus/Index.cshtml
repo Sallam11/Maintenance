@@ -3,22 +3,27 @@
 @{
     ViewData["Title"] = "Index";
 }
+<div class="text-center">
+    <h2 style="color:dodgerblue">Order status</h2>
+</div>
 
-<h4>Order status</h4>
+
 
 <p>
-    <a asp-action="Create" class="btn btn-info">Create New</a>
+    <a asp-action="Create" class="btn btn-primary ">Create New</a>
 </p>
 <table class="table table-bordered table-hover table-condensed">
     <thead class="table-Primary">
         <tr >
-            <th>
+            <th width="10%">
                 @Html.DisplayNameFor(model => model.OrdersStatus_ID)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.OrdersStatus_Name)
             </th>
-           
+             <th width="5%">
+                   Delete
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -30,7 +35,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.OrdersStatus_Name)
             </td>
-           
+                <td>
+                    @Html.ActionLink("Delete", "Delete", new {  id=item.OrdersStatus_ID  },htmlAttributes:new{@class="btn btn-danger"})
+                </td>
         </tr>
 }
     </tbody>

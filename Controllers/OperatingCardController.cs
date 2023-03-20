@@ -74,16 +74,21 @@ namespace Maintenance.Controllers
         // GET: OperatingCardController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+
+            var _var = _db.OperatingCards.FirstOrDefault(x => x.OperatingCard_ID == id);
+            return View(_var);
         }
 
         // POST: OperatingCardController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id, OperatingCard collection)
         {
             try
             {
+                collection.OperatingCard_ID = id;
+                _db.OperatingCards.Remove(collection);
+                _db.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             catch

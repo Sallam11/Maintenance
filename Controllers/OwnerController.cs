@@ -74,16 +74,20 @@ namespace Maintenance.Controllers
         // GET: OwnerController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var _var = _db.Owners.FirstOrDefault(x => x.Owner_ID == id);
+            return View(_var);
         }
 
         // POST: OwnerController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id, Owner collection)
         {
             try
             {
+                collection.Owner_ID = id;
+                _db.Owners.Remove(collection);
+                _db.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             catch

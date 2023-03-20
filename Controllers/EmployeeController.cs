@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Maintenance.Data;
 using Maintenance.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Maintenance.Controllers
 {
@@ -17,19 +18,25 @@ namespace Maintenance.Controllers
 
         public ActionResult Index()
         {
-            var _var = _db.Employees.ToList();
+            var _var = _db.Employees.Include(a =>a.Branchs).Include(a => a.Professions).Include(a => a.DrivingLicenses).Include(a => a.PlaceOfWorks).ToList();
+
             return View(_var);
         }
 
         // GET: EmployeeController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var _var = _db.Employees.Include(a => a.Branchs).Include(a => a.Professions).Include(a => a.DrivingLicenses).Include(a => a.PlaceOfWorks).FirstOrDefault(I => I.Employee_ID == id);
+            return View(_var);
         }
 
         // GET: EmployeeController/Create
         public ActionResult Create()
         {
+            ViewBag.Branchs = _db.Branchs.ToList();
+            ViewBag.Professions = _db.Professions.ToList();
+            ViewBag.DrivingLicenses = _db.DrivingLicenses.ToList();
+            ViewBag.PlaceOfWorks = _db.PlaceOfWorks.ToList();
             return View();
         }
 
@@ -40,7 +47,7 @@ namespace Maintenance.Controllers
         {
             try
             {
-                var _var = _db.Employees.Add(collection);
+                _db.Employees.Add(collection);
                 _db.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
@@ -53,16 +60,25 @@ namespace Maintenance.Controllers
         // GET: EmployeeController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            ViewBag.Branchs = _db.Branchs.ToList();
+            ViewBag.Professions = _db.Professions.ToList();
+            ViewBag.DrivingLicenses = _db.DrivingLicenses.ToList();
+            ViewBag.PlaceOfWorks = _db.PlaceOfWorks.ToList();
+            var _var = _db.Employees.FirstOrDefault(I => I.Employee_ID == id);
+            return View(_var);
+          
         }
 
         // POST: EmployeeController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, Employee collection)
         {
             try
             {
+                collection.Employee_ID = id;
+                _db.Employees.Update(collection);
+                _db.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -74,16 +90,20 @@ namespace Maintenance.Controllers
         // GET: EmployeeController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var _var = _db.Employees.Include(a => a.Branchs).Include(a => a.Professions).Include(a => a.DrivingLicenses).Include(a => a.PlaceOfWorks).FirstOrDefault(I => I.Employee_ID == id);
+            return View(_var);
         }
 
         // POST: EmployeeController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id, Employee collection)
         {
             try
             {
+                 collection.Employee_ID = id;
+                _db.Employees.Remove(collection);
+                _db.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             catch

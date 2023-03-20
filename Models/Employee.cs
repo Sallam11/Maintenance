@@ -18,13 +18,13 @@ namespace Maintenance.Models
 
 
         [StringLength(150)]
-        [DisplayName("English Name")]
+        [DisplayName("Eng. Name")]
         [Required]
         public string Employee_EngName { get; set; } = string.Empty;
 
 
         [StringLength(200)]
-        [DisplayName("Arabic Name")]
+        [DisplayName("Ar.Name")]
         [Required]
         public string Employee_ArName { get; set; } = string.Empty;
 
@@ -33,32 +33,35 @@ namespace Maintenance.Models
         public string Employee_Phone { get; set; } = string.Empty;
 
         [StringLength(20)]
-        [DisplayName("Iqama No.")]
+        [DisplayName("Iqama")]
         [Required]
         public string Employee_Iqama { get; set; } = string.Empty;
 
         public string Employee_ImageURL { get; set; } = string.Empty;
-
-        public int  BranchID_FK { get; set; }
-        public int ProfessionID_FK { get; set; }
-        public int DrivingLicenseID_FK { get; set; }
-        public int PlaceOfWorkID_FK { get; set; }
+        [DisplayName("Branch")]
+        public int  BranchIDFK { get; set; }
+        [DisplayName("Profession")]
+        public int ProfessionIDFK { get; set; }
+        [DisplayName("License")]
+        public int DrivingLicenseIDFK { get; set; }
+        [DisplayName("Place Of Work")]
+        public int PlaceOfWorkIDFK { get; set; }
     
 
 
 
-        [ForeignKey(nameof(BranchID_FK))]
+        [ForeignKey(nameof(BranchIDFK))]
         public Branch? Branchs { get; set; }
 
 
-        [ForeignKey(nameof(ProfessionID_FK))]
+        [ForeignKey(nameof(ProfessionIDFK))]
         public Profession? Professions { get; set; }
 
-        [ForeignKey(nameof(DrivingLicenseID_FK))]
+        [ForeignKey(nameof(DrivingLicenseIDFK))]
         public DrivingLicense? DrivingLicenses { get; set; }
 
 
-        [ForeignKey(nameof(PlaceOfWorkID_FK))]
+        [ForeignKey(nameof(PlaceOfWorkIDFK))]
         public PlaceOfWork? PlaceOfWorks { get; set; }
 
 

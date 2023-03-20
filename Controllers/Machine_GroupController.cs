@@ -75,16 +75,21 @@ namespace Maintenance.Controllers
         // GET: Machine_GroupController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var _var = _db.Machine_Groups.FirstOrDefault(x => x.MachineGroup_ID == id);
+            return View(_var);
         }
 
         // POST: Machine_GroupController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id, Machine_Group collection)
         {
             try
             {
+                 collection.MachineGroup_ID = id;
+                _db.Machine_Groups.Remove(collection);
+                _db.SaveChanges();
+
                 return RedirectToAction(nameof(Index));
             }
             catch

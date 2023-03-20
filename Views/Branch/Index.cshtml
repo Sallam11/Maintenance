@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Maintenance.Models.Branch>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="text-center">
+    <h2 style="color:dodgerblue">Branchs</h2>
+</div>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary ">Create New</a>
+</p>
+<table class="table table-bordered table-hover table-condensed">
+    <thead class="table-Primary">
+        <tr>
+            <th width="10%">
+                @Html.DisplayNameFor(model => model.Branch_ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Branch_ArName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Branch_EngName)
+            </th>
+           
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Branch_ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Branch_ArName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Branch_EngName)
+            </td>
+            
+        </tr>
+}
+    </tbody>
+</table>

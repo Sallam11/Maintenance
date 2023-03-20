@@ -74,16 +74,20 @@ namespace Maintenance.Controllers
         // GET: PlaceOfWorkController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var _var = _db.PlaceOfWorks.FirstOrDefault(x => x.PlaceOfWork_ID == id);
+            return View(_var);
         }
 
         // POST: PlaceOfWorkController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id, PlaceOfWork collection)
         {
             try
             {
+                collection.PlaceOfWork_ID = id;
+                _db.PlaceOfWorks.Remove(collection);
+                _db.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             catch

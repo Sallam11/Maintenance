@@ -4,11 +4,9 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
-
-<div>
-    <h4>Machine</h4>
-    <hr />
+<div class="text-center">
+    <h2 style="color:dodgerblue">Machine</h2>
+</div>
     <dl class="row">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Machine_ID)
@@ -17,28 +15,67 @@
             @Html.DisplayFor(model => model.Machine_ID)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.GroupID_FK)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.GroupID_FK)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SubGroupID_FK)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SubGroupID_FK)
-        </dd>
-        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Machine_Code)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Machine_Code)
         </dd>
         <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.GroupIDFK)
+        </dt>
+      @*  <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Machine_Groups.MachineGroup_Name)
+        </dd>*@
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.SubGroupIDFK)
+        </dt>
+       @* <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Machine_SubGroups.MachineSubgroup_Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.BrandIDFK)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Brands.Brand_Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ModelIDFK)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Models.Model_Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.OwnerIDFK)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Owners.Owner_Name)
+        </dd>*@
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Machine_PlateNo)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Machine_PlateNo)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Machine_SerialNo)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Machine_SerialNo)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Machine_Note)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Machine_Note)
+        </dd>
+        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Machine_ImageURL)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Machine_ImageURL)
+        @if (Model.Machine_ImageURL != null)
+        {
+            <img src="~/uploads/Machine/@Model.Machine_ImageURL" style="width:150px;" class="img-thumbnail" />
+        }
         </dd>
     </dl>
 </div>

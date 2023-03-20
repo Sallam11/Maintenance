@@ -2,14 +2,13 @@
 
 @{
     ViewData["Title"] = "Delete";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Delete</h1>
-
-<h3>Are you sure you want to delete this?</h3>
+<div class="text-center">
+    <h2 style="color:dodgerblue">Machines</h2>
+</div>
+<h5 style="color:red">Are you sure you want to delete this?</h5>
 <div>
-    <h4>Machine</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -24,30 +23,63 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Machine_Code)
         </dd>
-         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.GroupID_FK)
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.GroupIDFK)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Brands.Barnd_Name)
+        @*<dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Machine_Groups.MachineGroup_Name)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SubGroupID_FK)
+            @Html.DisplayNameFor(model => model.SubGroupIDFK)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Models.Model_Name)
+            @Html.DisplayFor(model => model.Machine_SubGroups.MachineSubgroup_Name)
         </dd>
-       
-        
-        @if(Model.Machine_ImageURL !=null)
-            {
-            <dt class = "col-sm-2">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.BrandIDFK)
+        </dt>
+        <dd class = "col-sm-10">
+           @Html.DisplayFor(model => model.Brands.Brand_Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ModelIDFK)
+        </dt>
+        <dd class = "col-sm-10">
+           @Html.DisplayFor(model => model.Models.Model_Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.OwnerIDFK)
+        </dt>
+        <dd class = "col-sm-10">
+          @Html.DisplayFor(model => model.Owners.Owner_Name)
+        </dd>*@
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Machine_PlateNo)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Machine_PlateNo)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Machine_SerialNo)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Machine_SerialNo)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Machine_Note)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Machine_Note)
+        </dd>
+        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Machine_ImageURL)
-            </dt>
-             <dd class = "col-sm-10">
-                <img src="~/Upload/Machine/@Model.Machine_ImageURL" style="width:128px;" class="img-thumbnail" />
-             </dd>
-           }
-       
+        </dt>
+        <dd class = "col-sm-10">
+            @if (Model.Machine_ImageURL != null)
+            {
+                <img src="~/uploads/Machine/@Model.Machine_ImageURL" style="width:64px;" class="img-thumbnail" />
+            }
+        </dd>
     </dl>
     
     <form asp-action="Delete">

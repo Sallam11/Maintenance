@@ -5,25 +5,30 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<div class="text-center">
+    <h2 style="color:dodgerblue">Item Types</h2>
+</div>
+
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-primary ">Create New</a>
 </p>
 <table class="table table-bordered table-hover table-condensed">
     <thead class="table-Primary">
 
         <tr>
-            <th>
+           <th width="10%">
                 @Html.DisplayNameFor(model => model.ItemSubGroup_ID)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ItemGroup_IDFK)
+                @Html.DisplayNameFor(model => model.ItemGroupIDFK)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ItemSubGroup_Name)
             </th>
-            <th></th>
+            <th width="5%">
+                Delete
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -33,15 +38,13 @@
                 @Html.DisplayFor(modelItem => item.ItemSubGroup_ID)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ItemGroup_IDFK)
+                @Html.DisplayFor(modelItem => item.Item_Groups.ItemGroup_Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ItemSubGroup_Name)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    @Html.ActionLink("Delete", "Delete", new {  id=item.ItemSubGroup_ID  },htmlAttributes:new{@class="btn btn-danger"})
             </td>
         </tr>
 }

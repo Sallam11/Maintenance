@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Maintenance.Models.PlaceOfWork>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="text-center">
+    <h2 style="color:dodgerblue">Place Of Work</h2>
+</div>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary ">Create New</a>
+</p>
+<table class="table table-bordered table-hover table-condensed">
+    <thead class="table-Primary">
+        <tr>
+            <th width="10%">
+                @Html.DisplayNameFor(model => model.PlaceOfWork_ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PlaceOfWork_Name)
+            </th>
+            <th width="5%">
+                Delete
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PlaceOfWork_ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PlaceOfWork_Name)
+            </td>
+            <td>
+                    @Html.ActionLink("Delete", "Delete", new {  id=item.PlaceOfWork_ID  },htmlAttributes:new{@class="btn btn-danger"})
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

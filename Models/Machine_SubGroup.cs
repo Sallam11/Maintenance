@@ -12,12 +12,12 @@ namespace Maintenance.Models
         public int MachineSubgroup_ID { get; set; }
         [Required]
         [StringLength(50, MinimumLength = 2)]
-        [DisplayName("Sub Group Name")]
+        [DisplayName("Type Machine")]
         public string MachineSubgroup_Name { get; set; } = string.Empty;
-        [DisplayName("Group Name")]
-        public int MachineGroup_IDFK { get; set; }
+        [DisplayName("Group Machine")]
+        public int MachineGroupIDFK { get; set; }
 
-        [ForeignKey(nameof(MachineGroup_IDFK))]
-        public Machine_Group? Brand_Groups { get; set; }
+        [ForeignKey(nameof(MachineGroupIDFK))]
+        public Machine_Group? Machine_Groups { get; set; }
     }
 }

@@ -5,15 +5,19 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<div class="text-center">
+    <h2 style="color:dodgerblue">Professions</h2>
+</div>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-primary ">Create New</a>
 </p>
-<table class="table">
+<table class="table table-bordered table-hover table-condensed">
     <thead class="table-Primary">
         <tr >
-            <th>
+            
+            <th width="10%">
+                
                 @Html.DisplayNameFor(model => model.Profession_ID)
             </th>
             <th>
@@ -22,7 +26,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Profession_EngName)
             </th>
-            <th></th>
+              <th width="5%">
+                Delete
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -38,9 +44,7 @@
                 @Html.DisplayFor(modelItem => item.Profession_EngName)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ })
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) 
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    @Html.ActionLink("Delete", "Delete", new {  id=item.Profession_ID  },htmlAttributes:new{@class="btn btn-danger"})
             </td>
         </tr>
 }

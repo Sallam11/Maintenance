@@ -3,17 +3,19 @@
 @{
     ViewData["Title"] = "Index";
 }
+<div class="text-center">
+    <h2 style="color:dodgerblue">Machine Movement</h2>
+</div>
 
-<h1>Index</h1>
 
 <p>
-    <a asp-action="Create" class="btn btn-info">Create New</a>
+    <a asp-action="Create" class="btn btn-primary ">Create New</a>
 </p>
 <table class="table table-bordered table-hover table-condensed">
     <thead class="table-Primary">
 
         <tr>
-            <th>
+            <th width="10%">
                 @Html.DisplayNameFor(model => model.MachineMovement_ID)
             </th>
             
@@ -35,7 +37,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.MachineMovement_Note)
             </th>
-            <th></th>
+            <th width="5%">
+                Delete
+            </th>
         </tr>
     </thead>
     <tbody>

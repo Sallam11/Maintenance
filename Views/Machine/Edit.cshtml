@@ -4,40 +4,79 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
 
-<h4>Machine</h4>
+<div class="text-center">
+    <h2 style="color:dodgerblue">Machine</h2>
+</div>
+<h4 style="color:brown">Edit</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Machine_ID" class="control-label"></label>
-                <input asp-for="Machine_ID" class="form-control" readonly />
+                <input asp-for="Machine_ID" class="form-control" />
                 <span asp-validation-for="Machine_ID" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="GroupID_FK" class="control-label"></label>
-                <select asp-for="GroupID_FK" class="form-control" asp-items="@(new SelectList( ViewBag.Brand_Groups, "Barnd_ID", "Barnd_Name"))"></select>
-                <span asp-validation-for="GroupID_FK" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SubGroupID_FK" class="control-label"></label>
-                <select asp-for="SubGroupID_FK" class="form-control" asp-items="@(new SelectList( ViewBag.Models, "Model_ID", "Model_Name"))"></select>
-                <span asp-validation-for="SubGroupID_FK" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="Machine_Code" class="control-label"></label>
-                <input asp-for="Machine_Code" class="form-control" readonly />
+                <input asp-for="Machine_Code" class="form-control" />
                 <span asp-validation-for="Machine_Code" class="text-danger"></span>
             </div>
-
-            
+            <div class="form-group">
+                <label asp-for="GroupIDFK" class="control-label"></label>
+                <select asp-for="GroupIDFK" class="form-control" asp-items="@(new SelectList( ViewBag.Groups, "MachineGroup_ID", "MachineGroup_Name"))"></select>
+                <span asp-validation-for="GroupIDFK" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SubGroupIDFK" class="control-label"></label>
+                <select asp-for="SubGroupIDFK" class="form-control" asp-items="@(new SelectList( ViewBag.SubGroups, "MachineSubgroup_ID", "MachineSubgroup_Name"))"></select>
+                <span asp-validation-for="SubGroupIDFK" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BrandIDFK" class="control-label"></label>
+                <select asp-for="BrandIDFK" class="form-control" asp-items="@(new SelectList( ViewBag.Brands, "Brand_ID", "Brand_Name"))"></select>
+                <span asp-validation-for="BrandIDFK" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ModelIDFK" class="control-label"></label>
+                <select asp-for="ModelIDFK" class="form-control" asp-items="@(new SelectList( ViewBag.Models, "Model_ID", "Model_Name"))"></select>
+                <span asp-validation-for="ModelIDFK" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OwnerIDFK" class="control-label"></label>
+                <select asp-for="OwnerIDFK" class="form-control" asp-items="@(new SelectList(ViewBag.Owners, "Owner_ID", "Owner_Name"))"></select>
+                <span asp-validation-for="OwnerIDFK" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PlaceOfWorkIDFK" class="control-label"></label>
+                <select asp-for="PlaceOfWorkIDFK" class="form-control" asp-items="@(new SelectList(ViewBag.PlaceOfWorks, "PlaceOfWork_ID", "PlaceOfWork_Name"))"></select>
+                <span asp-validation-for="PlaceOfWorkIDFK" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Machine_PlateNo" class="control-label"></label>
+                <input asp-for="Machine_PlateNo" class="form-control" />
+                <span asp-validation-for="Machine_PlateNo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Machine_SerialNo" class="control-label"></label>
+                <input asp-for="Machine_SerialNo" class="form-control" />
+                <span asp-validation-for="Machine_SerialNo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Machine_Note" class="control-label"></label>
+                <input asp-for="Machine_Note" class="form-control" />
+                <span asp-validation-for="Machine_Note" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="Machine_ImageURL" class="control-label"></label>
-                <input asp-for="Machine_ImageURL" class="form-control" />
+                <input type="file" name="File" asp-for="File" class="form-control" />
                 <span asp-validation-for="Machine_ImageURL" class="text-danger"></span>
+                @if (@Model.Machine_ImageURL != null)
+                {
+                    <img src="~/uploads/Machine/@Model.Machine_ImageURL" style="width:64px;" class="img-thumbnail" />
+                }
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

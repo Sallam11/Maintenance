@@ -74,16 +74,22 @@ namespace Maintenance.Controllers
         // GET: DrivingLicenseController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var _var = _db.DrivingLicenses.FirstOrDefault(x => x.DrivingLicense_ID == id);
+            return View(_var);
+          
         }
 
         // POST: DrivingLicenseController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id, DrivingLicense collection)
         {
             try
             {
+
+                collection.DrivingLicense_ID = id;
+                _db.DrivingLicenses.Remove(collection);
+                _db.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             catch

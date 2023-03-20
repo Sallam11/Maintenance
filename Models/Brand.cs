@@ -1,26 +1,28 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Xml.Linq;
 
 namespace Maintenance.Models
 {
-    
     public class Brand
     {
         [Key]
+
         [DisplayName("Code")]
-        public int Barnd_ID { get; set; }
+        public int Brand_ID { get; set; }
         [StringLength(50)]
         [DisplayName("Name")]
-        [Required]
-        public string Barnd_Name { get; set; } = string.Empty;
-
-
-        public int MachineSubgroup_IDFK { get; set; }
-
-        [ForeignKey(nameof(MachineSubgroup_IDFK))]
-        public Machine_SubGroup? Machine_SubGroup { get; set; }
-
+        public string Brand_Name { get; set; } = string.Empty;
+        [DisplayName("Machine")]
+        public int MachineGroupIDFK { get; set; }
+        [DisplayName("Machine Type")]
+        public int MachineSubGroupIDFK { get; set; }
+        [ForeignKey(nameof(MachineGroupIDFK))]
+        public Machine_Group? Machine_Groups { get; set; }
+        [ForeignKey(nameof(MachineSubGroupIDFK))]
+        public Machine_SubGroup? Machine_SubGroups { get; set; }
     }
 }

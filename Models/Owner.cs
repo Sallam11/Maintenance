@@ -10,7 +10,7 @@ namespace Maintenance.Models
         public int Owner_ID { get; set; }
         [StringLength(50)]
         [Display(Name = "Name")]
-        public string Owner_ArName { get; set; } = string.Empty;
+        public string Owner_Name { get; set; } = string.Empty;
        
     }
 }

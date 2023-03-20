@@ -12,14 +12,13 @@ namespace Maintenance.Models
 
         [Required]
         [DisplayName("Item Group")]
-        public int ItemGroup_IDFK { get; set; }
-        [DisplayName("Item SubGroup")]
-
+        public int ItemGroupIDFK { get; set; }
         [Required]
         [StringLength(50)]
+        [DisplayName("Item Type")]
         public string ItemSubGroup_Name { get; set; } = string.Empty;
 
-        [ForeignKey(nameof(ItemGroup_IDFK))]
+        [ForeignKey(nameof(ItemGroupIDFK))]
         public Item_Group? Item_Groups { get; set; }
     }
 }

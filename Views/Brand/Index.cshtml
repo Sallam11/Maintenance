@@ -4,32 +4,53 @@
     ViewData["Title"] = "Index";
 }
 
-<h4>Machine Group </h4>
+<div class="text-center">
+    <h2 style="color:dodgerblue">Brand</h2>
+</div>
+
 
 <p>
-    <a asp-action="Create" class="btn btn-info">Create New</a>
+    <a asp-action="Create" class="btn btn-primary ">Create New</a>
 </p>
 <table class="table table-bordered table-hover table-condensed">
     <thead class="table-Primary">
 
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Barnd_ID)
+            <th width="10%">
+                @Html.DisplayNameFor(model => model.Brand_ID)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Barnd_Name)
+                @Html.DisplayNameFor(model => model.MachineGroupIDFK)
             </th>
-           
+            <th>
+                @Html.DisplayNameFor(model => model.MachineSubGroupIDFK)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Brand_Name)
+            </th>
+            <th width="5%">
+                Delete
+            </th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Barnd_ID)
+                @Html.DisplayFor(modelItem => item.Brand_ID)
+            </td>
+          
+            <td>
+                @Html.DisplayFor(modelItem => item.Machine_Groups.MachineGroup_Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Barnd_Name)
+                    @Html.DisplayFor(modelItem => item.Machine_SubGroups.MachineSubgroup_Name)
+            </td>
+              <td>
+                @Html.DisplayFor(modelItem => item.Brand_Name)
+            </td>
+            <td>
+                    @Html.ActionLink("Delete", "Delete", new {  id=item.Brand_ID  },htmlAttributes:new{@class="btn btn-danger"})
             </td>
         </tr>
 }

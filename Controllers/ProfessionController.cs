@@ -74,16 +74,20 @@ namespace Maintenance.Controllers
         // GET: ProfessionController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var _var = _db.Professions.FirstOrDefault(x => x.Profession_ID == id);
+            return View(_var);
         }
 
         // POST: ProfessionController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id, Profession collection)
         {
             try
             {
+                collection.Profession_ID = id;
+                _db.Professions.Remove(collection);
+                _db.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             catch

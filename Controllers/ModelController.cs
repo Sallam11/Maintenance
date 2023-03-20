@@ -18,12 +18,7 @@ namespace Maintenance.Controllers
 
         public ActionResult Index()
         {
-          
-
-            var _Var = _db.Models.Include(s => s.Brand_Groups).ToList();
-
-
-
+           var _Var = _db.Models.Include(s => s.Brands).ToList();
             return View(_Var);
         }
 
@@ -36,7 +31,8 @@ namespace Maintenance.Controllers
         // GET: Brand_SubGroupController/Create
         public ActionResult Create()
         {
-            ViewBag.Brand_Groups = _db.Brands.ToList();
+            ViewBag.Barnds =_db.Brands.ToList();
+
             return View();
         }
 
@@ -81,16 +77,20 @@ namespace Maintenance.Controllers
         // GET: Brand_SubGroupController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var _Var = _db.Models.Include(s => s.Brands).FirstOrDefault(I => I.Model_ID == id);
+            return View(_Var);
         }
 
         // POST: Brand_SubGroupController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id, Model collection)
         {
             try
             {
+                collection.Model_ID = id;
+                _db.Models.Remove(collection);
+                _db.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             catch

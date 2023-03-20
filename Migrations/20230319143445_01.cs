@@ -63,6 +63,20 @@ namespace Maintenance.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Models",
+                columns: table => new
+                {
+                    Model_ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Model_Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Barnd_IDFK = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Models", x => x.Model_ID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Movement_Types",
                 columns: table => new
                 {
@@ -73,6 +87,19 @@ namespace Maintenance.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Movement_Types", x => x.MovementType_ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OperatingCards",
+                columns: table => new
+                {
+                    OperatingCard_ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OperatingCard_ArName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OperatingCards", x => x.OperatingCard_ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -94,7 +121,7 @@ namespace Maintenance.Migrations
                 {
                     Owner_ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Owner_ArName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                    Owner_Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -102,7 +129,7 @@ namespace Maintenance.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PlaceOfWork",
+                name: "PlaceOfWorks",
                 columns: table => new
                 {
                     PlaceOfWork_ID = table.Column<int>(type: "int", nullable: false)
@@ -111,7 +138,7 @@ namespace Maintenance.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PlaceOfWork", x => x.PlaceOfWork_ID);
+                    table.PrimaryKey("PK_PlaceOfWorks", x => x.PlaceOfWork_ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -134,17 +161,39 @@ namespace Maintenance.Migrations
                 {
                     ItemSubGroup_ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ItemGroup_IDFK = table.Column<int>(type: "int", nullable: false),
+                    ItemGroupIDFK = table.Column<int>(type: "int", nullable: false),
                     ItemSubGroup_Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Item_SubGroups", x => x.ItemSubGroup_ID);
                     table.ForeignKey(
-                        name: "FK_Item_SubGroups_Item_Groups_ItemGroup_IDFK",
-                        column: x => x.ItemGroup_IDFK,
+                        name: "FK_Item_SubGroups_Item_Groups_ItemGroupIDFK",
+                        column: x => x.ItemGroupIDFK,
                         principalTable: "Item_Groups",
                         principalColumn: "ItemGroup_ID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Brands",
+                columns: table => new
+                {
+                    Brand_ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Brand_Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    MachineGroupIDFK = table.Column<int>(type: "int", nullable: false),
+                    MachineSubGroupIDFK = table.Column<int>(type: "int", nullable: false),
+                    Machine_GroupsMachineGroup_ID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Brands", x => x.Brand_ID);
+                    table.ForeignKey(
+                        name: "FK_Brands_Machine_Groups_Machine_GroupsMachineGroup_ID",
+                        column: x => x.Machine_GroupsMachineGroup_ID,
+                        principalTable: "Machine_Groups",
+                        principalColumn: "MachineGroup_ID",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -155,14 +204,14 @@ namespace Maintenance.Migrations
                     MachineSubgroup_ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     MachineSubgroup_Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    MachineGroup_IDFK = table.Column<int>(type: "int", nullable: false)
+                    MachineGroupIDFK = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Machine_SubGroups", x => x.MachineSubgroup_ID);
                     table.ForeignKey(
-                        name: "FK_Machine_SubGroups_Machine_Groups_MachineGroup_IDFK",
-                        column: x => x.MachineGroup_IDFK,
+                        name: "FK_Machine_SubGroups_Machine_Groups_MachineGroupIDFK",
+                        column: x => x.MachineGroupIDFK,
                         principalTable: "Machine_Groups",
                         principalColumn: "MachineGroup_ID",
                         onDelete: ReferentialAction.Restrict);
@@ -201,9 +250,9 @@ namespace Maintenance.Migrations
                         principalColumn: "DrivingLicense_ID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Employees_PlaceOfWork_PlaceOfWorkID_FK",
+                        name: "FK_Employees_PlaceOfWorks_PlaceOfWorkID_FK",
                         column: x => x.PlaceOfWorkID_FK,
-                        principalTable: "PlaceOfWork",
+                        principalTable: "PlaceOfWorks",
                         principalColumn: "PlaceOfWork_ID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -221,86 +270,24 @@ namespace Maintenance.Migrations
                     Item_ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Item_Name = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
-                    ItemGroup_IDFK = table.Column<int>(type: "int", nullable: false),
-                    ItemSubGroup_IDFK = table.Column<int>(type: "int", nullable: false),
+                    ItemGroupIDFK = table.Column<int>(type: "int", nullable: false),
+                    ItemSubGroupIDFK = table.Column<int>(type: "int", nullable: false),
                     Item_Code = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Items", x => x.Item_ID);
                     table.ForeignKey(
-                        name: "FK_Items_Item_Groups_ItemGroup_IDFK",
-                        column: x => x.ItemGroup_IDFK,
+                        name: "FK_Items_Item_Groups_ItemGroupIDFK",
+                        column: x => x.ItemGroupIDFK,
                         principalTable: "Item_Groups",
                         principalColumn: "ItemGroup_ID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Items_Item_SubGroups_ItemSubGroup_IDFK",
-                        column: x => x.ItemSubGroup_IDFK,
+                        name: "FK_Items_Item_SubGroups_ItemSubGroupIDFK",
+                        column: x => x.ItemSubGroupIDFK,
                         principalTable: "Item_SubGroups",
                         principalColumn: "ItemSubGroup_ID",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Brands",
-                columns: table => new
-                {
-                    Barnd_ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Barnd_Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    MachineSubgroup_IDFK = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Brands", x => x.Barnd_ID);
-                    table.ForeignKey(
-                        name: "FK_Brands_Machine_SubGroups_MachineSubgroup_IDFK",
-                        column: x => x.MachineSubgroup_IDFK,
-                        principalTable: "Machine_SubGroups",
-                        principalColumn: "MachineSubgroup_ID",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Users",
-                columns: table => new
-                {
-                    User_ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    User_Name = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    User_Password = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    User_Active = table.Column<bool>(type: "bit", nullable: false),
-                    EmployeeID_FK = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Users", x => x.User_ID);
-                    table.ForeignKey(
-                        name: "FK_Users_Employees_EmployeeID_FK",
-                        column: x => x.EmployeeID_FK,
-                        principalTable: "Employees",
-                        principalColumn: "Employee_ID",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Models",
-                columns: table => new
-                {
-                    Model_ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Model_Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Barnd_IDFK = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Models", x => x.Model_ID);
-                    table.ForeignKey(
-                        name: "FK_Models_Brands_Barnd_IDFK",
-                        column: x => x.Barnd_IDFK,
-                        principalTable: "Brands",
-                        principalColumn: "Barnd_ID",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -325,12 +312,6 @@ namespace Maintenance.Migrations
                 {
                     table.PrimaryKey("PK_Machines", x => x.Machine_ID);
                     table.ForeignKey(
-                        name: "FK_Machines_Brands_BrandID_FK",
-                        column: x => x.BrandID_FK,
-                        principalTable: "Brands",
-                        principalColumn: "Barnd_ID",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
                         name: "FK_Machines_Machine_Groups_GroupID_FK",
                         column: x => x.GroupID_FK,
                         principalTable: "Machine_Groups",
@@ -353,6 +334,28 @@ namespace Maintenance.Migrations
                         column: x => x.OwnerID_FK,
                         principalTable: "Owners",
                         principalColumn: "Owner_ID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    User_ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    User_Name = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    User_Password = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    User_Active = table.Column<bool>(type: "bit", nullable: false),
+                    EmployeeID_FK = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.User_ID);
+                    table.ForeignKey(
+                        name: "FK_Users_Employees_EmployeeID_FK",
+                        column: x => x.EmployeeID_FK,
+                        principalTable: "Employees",
+                        principalColumn: "Employee_ID",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -403,9 +406,9 @@ namespace Maintenance.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Brands_MachineSubgroup_IDFK",
+                name: "IX_Brands_Machine_GroupsMachineGroup_ID",
                 table: "Brands",
-                column: "MachineSubgroup_IDFK");
+                column: "Machine_GroupsMachineGroup_ID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Employees_BranchID_FK",
@@ -428,19 +431,19 @@ namespace Maintenance.Migrations
                 column: "ProfessionID_FK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Item_SubGroups_ItemGroup_IDFK",
+                name: "IX_Item_SubGroups_ItemGroupIDFK",
                 table: "Item_SubGroups",
-                column: "ItemGroup_IDFK");
+                column: "ItemGroupIDFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Items_ItemGroup_IDFK",
+                name: "IX_Items_ItemGroupIDFK",
                 table: "Items",
-                column: "ItemGroup_IDFK");
+                column: "ItemGroupIDFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Items_ItemSubGroup_IDFK",
+                name: "IX_Items_ItemSubGroupIDFK",
                 table: "Items",
-                column: "ItemSubGroup_IDFK");
+                column: "ItemSubGroupIDFK");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Machine_Movements_EmployeeID_FK",
@@ -463,14 +466,9 @@ namespace Maintenance.Migrations
                 column: "OrdersStatusID_FK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Machine_SubGroups_MachineGroup_IDFK",
+                name: "IX_Machine_SubGroups_MachineGroupIDFK",
                 table: "Machine_SubGroups",
-                column: "MachineGroup_IDFK");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Machines_BrandID_FK",
-                table: "Machines",
-                column: "BrandID_FK");
+                column: "MachineGroupIDFK");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Machines_GroupID_FK",
@@ -493,11 +491,6 @@ namespace Maintenance.Migrations
                 column: "SubGroupID_FK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Models_Barnd_IDFK",
-                table: "Models",
-                column: "Barnd_IDFK");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Users_EmployeeID_FK",
                 table: "Users",
                 column: "EmployeeID_FK");
@@ -506,10 +499,16 @@ namespace Maintenance.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Brands");
+
+            migrationBuilder.DropTable(
                 name: "Items");
 
             migrationBuilder.DropTable(
                 name: "Machine_Movements");
+
+            migrationBuilder.DropTable(
+                name: "OperatingCards");
 
             migrationBuilder.DropTable(
                 name: "Users");
@@ -533,6 +532,9 @@ namespace Maintenance.Migrations
                 name: "Item_Groups");
 
             migrationBuilder.DropTable(
+                name: "Machine_SubGroups");
+
+            migrationBuilder.DropTable(
                 name: "Models");
 
             migrationBuilder.DropTable(
@@ -545,16 +547,10 @@ namespace Maintenance.Migrations
                 name: "DrivingLicenses");
 
             migrationBuilder.DropTable(
-                name: "PlaceOfWork");
+                name: "PlaceOfWorks");
 
             migrationBuilder.DropTable(
                 name: "Professions");
-
-            migrationBuilder.DropTable(
-                name: "Brands");
-
-            migrationBuilder.DropTable(
-                name: "Machine_SubGroups");
 
             migrationBuilder.DropTable(
                 name: "Machine_Groups");

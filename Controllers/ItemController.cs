@@ -32,6 +32,8 @@ namespace Maintenance.Controllers
         // GET: ItemController/Create
         public ActionResult Create()
         {
+            ViewBag.ItemGroups = _db.Item_Groups.ToList();
+            ViewBag.ItemSubGroups = _db.Item_SubGroups.ToList();
             return View();
         }
 
@@ -42,7 +44,7 @@ namespace Maintenance.Controllers
         {
             try
             {
-                var _var = _db.Items.Add(collection);
+                _db.Items.Add(collection);
                 _db.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
@@ -76,17 +78,22 @@ namespace Maintenance.Controllers
         // GET: ItemController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var _Var = _db.Items.Include(s => s.Item_Groups).Include(s => s.Item_SubGroups).FirstOrDefault(i => i.Item_ID == id);
+            return View(_Var);
         }
 
         // POST: ItemController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id, Item collection)
         {
             try
             {
+                collection.Item_ID = id;
+                _db.Items.Remove(collection);
+                _db.SaveChanges();
                 return RedirectToAction(nameof(Index));
+               
             }
             catch
             {

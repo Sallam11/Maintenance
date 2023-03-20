@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Maintenance.Models.OperatingCard>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="text-center">
+    <h2 style="color:dodgerblue">Operating Card</h2>
+</div>
+
+
+<p>
+    <a asp-action="Create" class="btn btn-primary ">Create New</a>
+</p>
+<table class="table table-bordered table-hover table-condensed">
+    <thead class="table-Primary">
+        <tr>
+            <th width="10%">
+                @Html.DisplayNameFor(model => model.OperatingCard_ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OperatingCard_ArName)
+            </th>
+              <th width="5%">
+                Delete
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OperatingCard_ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OperatingCard_ArName)
+            </td>
+            <td>
+                    @Html.ActionLink("Delete", "Delete", new {  id=item.OperatingCard_ID  },htmlAttributes:new{@class="btn btn-danger"})
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -18,13 +18,8 @@ namespace Maintenance.Controllers
 
         public ActionResult Index()
         {
-          
-
-            //var _Var = _db.Machine_SubGroups.Include(s => s.Machine_Groups).ToList();
-
-
-
-            return View();
+            var _Var = _db.Machine_SubGroups.Include(s => s.Machine_Groups).ToList();
+            return View(_Var);
         }
 
         // GET: Machine_SubGroupController/Details/5
@@ -81,16 +76,20 @@ namespace Maintenance.Controllers
         // GET: Machine_SubGroupController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var _Var = _db.Machine_SubGroups.Include(s => s.Machine_Groups).ToList().FirstOrDefault(x => x.MachineSubgroup_ID == id);
+            return View(_Var);
         }
 
         // POST: Machine_SubGroupController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id, Machine_SubGroup collection)
         {
             try
             {
+                collection.MachineSubgroup_ID = id;
+                _db.Machine_SubGroups.Remove(collection);
+                _db.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             catch

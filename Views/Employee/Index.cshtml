@@ -4,16 +4,19 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<div class="text-center">
+    <h2 style="color:dodgerblue">Employee</h2>
+</div>
+
 
 <p>
-    <a asp-action="Create" class="btn btn-info">Create New</a>
+    <a asp-action="Create" class="btn btn-primary ">Create New</a>
 </p>
 <table class="table table-bordered table-hover table-condensed">
     <thead class="table-Primary">
 
         <tr>
-            <th>
+            <th width="3%">
                 @Html.DisplayNameFor(model => model.Employee_ID)
             </th>
             <th>
@@ -28,7 +31,33 @@
             <th>
                 @Html.DisplayNameFor(model => model.Employee_Phone)
             </th>
-            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.Employee_Iqama)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BranchIDFK)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProfessionIDFK)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DrivingLicenseIDFK)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PlaceOfWorkIDFK)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Employee_ImageURL)
+            </th>
+            <th width="3%">
+                Edit
+            </th>
+            <th width="3%">
+                Details
+            </th>
+            <th width="3%">
+                Delete
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -50,12 +79,40 @@
                 @Html.DisplayFor(modelItem => item.Employee_Phone)
             </td>
             <td>
-
-                    @Html.ActionLink("Edit", "Edit", new {  id = item.Employee_ID  },htmlAttributes:new{@class="btn btn-info"}) |
-                    @Html.ActionLink("Details", "Details", new {  id=item.Employee_ID  },htmlAttributes:new{@class="btn btn-primary"})
-                    @Html.ActionLink("Delete", "Delete", new {  id=item.Employee_ID  },htmlAttributes:new{@class="btn btn-danger"})
-               
+                @Html.DisplayFor(modelItem => item.Employee_Iqama)
             </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Branchs.Branch_ArName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Professions.Profession_ArName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DrivingLicenses.DrivingLicense_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PlaceOfWorks.PlaceOfWork_Name)
+            </td>
+             <td>
+                @*@if (item.Employee_ImageURL != null)
+                {
+                    <img src="~/uploads/Employee/@item.Employee_ImageURL" style="width:64px;" class="img-thumbnail" />
+                }*@
+             </td>
+
+            <td>
+            @Html.ActionLink("Edit", "Edit", new {  id=item.Employee_ID  },htmlAttributes:new{@class="btn btn-secondary"})
+            </td>
+
+            <td>
+                    @Html.ActionLink("Details", "Details", new {  id=item.Employee_ID  },htmlAttributes:new{@class="btn btn-info"})
+            </td>
+
+            <td>
+            @Html.ActionLink("Delete", "Delete", new {  id=item.Employee_ID  },htmlAttributes:new{@class="btn btn-danger"})
+            </td>
+              
+          
         </tr>
 }
     </tbody>

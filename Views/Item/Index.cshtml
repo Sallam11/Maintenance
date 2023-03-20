@@ -2,34 +2,41 @@
 
 @{
     ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>Index</h1>
 
+<div class="text-center">
+    <h2 style="color:dodgerblue">Item</h2>
+</div>
+
+
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-primary ">Create New</a>
 </p>
 <table class="table table-bordered table-hover table-condensed">
     <thead class="table-Primary">
 
         <tr>
-            <th>
+            <th width="10%">
                 @Html.DisplayNameFor(model => model.Item_ID)
             </th>
+            
             <th>
-                @Html.DisplayNameFor(model => model.Item_Name)
+                @Html.DisplayNameFor(model => model.ItemGroupIDFK)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ItemGroup_IDFK)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ItemSubGroup_IDFK)
+                @Html.DisplayNameFor(model => model.ItemSubGroupIDFK)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Item_Code)
             </th>
-            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.Item_Name)
+            </th>
+            <th width="5%">
+                Delete
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -38,23 +45,22 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Item_ID)
             </td>
+             
             <td>
-                @Html.DisplayFor(modelItem => item.Item_Name)
+                @Html.DisplayFor(modelItem => item.Item_Groups.ItemGroup_Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ItemGroup_IDFK)
+                @Html.DisplayFor(modelItem => item.Item_SubGroups.ItemSubGroup_Name)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ItemSubGroup_IDFK)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Item_Code)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Item_Code)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Item_Name)
+                </td>
+                <td>
+                    @Html.ActionLink("Delete", "Delete", new {  id=item.Item_ID  },htmlAttributes:new{@class="btn btn-danger"})
+                </td>
         </tr>
 }
     </tbody>

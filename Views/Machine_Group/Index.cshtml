@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Maintenance.Models.Machine_Group>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="text-center">
+    <h2 style="color:dodgerblue" >Machine Group</h2>
+</div>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary ">Create New</a>
+</p>
+<table  class="table table-bordered table-hover table-condensed">
+    <thead class="table-Primary">
+        <tr>
+            <th width="10%">
+                @Html.DisplayNameFor(model => model.MachineGroup_ID)
+            </th>
+            <th width="85%">
+                @Html.DisplayNameFor(model => model.MachineGroup_Name)
+            </th>
+            <th width="5%">
+                Delete
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+            <tr height="20">
+            <td class="text-center" >
+                @Html.DisplayFor(modelItem => item.MachineGroup_ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MachineGroup_Name)
+            </td>
+            <td>
+                    @Html.ActionLink("Delete", "Delete", new {  id=item.MachineGroup_ID  },htmlAttributes:new{@class="btn btn-danger"})
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -74,16 +74,21 @@ namespace Maintenance.Controllers
         // GET: Movement_TypeController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+
+            var _var = _db.Movement_Types.FirstOrDefault(x => x.MovementType_ID == id);
+            return View(_var);
         }
 
         // POST: Movement_TypeController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id, Movement_Type collection)
         {
             try
             {
+                collection.MovementType_ID = id;
+                _db.Movement_Types.Remove(collection);
+                _db.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             catch

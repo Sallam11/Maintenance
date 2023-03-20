@@ -4,32 +4,60 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<div class="text-center">
+    <h2 style="color:dodgerblue">Machine</h2>
+</div>
+
 
 <p>
-    <a asp-action="Create" class="btn btn-info">Create New</a>
+    <a asp-action="Create" class="btn btn-primary ">Create New</a>
 </p>
 <table class="table table-bordered table-hover table-condensed">
     <thead class="table-Primary">
 
         <tr>
-            <th>
+            <th width="3%">
                 @Html.DisplayNameFor(model => model.Machine_ID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.GroupID_FK)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SubGroupID_FK)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Machine_Code)
             </th>
-            
+            <th>
+                @Html.DisplayNameFor(model => model.GroupIDFK)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SubGroupIDFK)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BrandIDFK)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ModelIDFK)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OwnerIDFK)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Machine_PlateNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Machine_SerialNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Machine_Note)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Machine_ImageURL)
             </th>
-            <th></th>
+            <th width="3%">
+                Edit
+            </th>
+            <th width="3%">
+                Details
+            </th>
+            <th width="3%">
+                Delete
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -39,23 +67,50 @@
                 @Html.DisplayFor(modelItem => item.Machine_ID)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Brands.Barnd_Name)
-            </td>
-            <td>
-                    @Html.DisplayFor(modelItem => item.Models.Model_Name)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Machine_Code)
             </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.Machine_Groups.MachineGroup_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Machine_SubGroups.MachineSubgroup_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Brands.Brand_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Models.Model_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Owners.Owner_Name)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Machine_PlateNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Machine_SerialNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Machine_Note)
+            </td>
+            <td>
+
+                @if (item.Machine_ImageURL != null)
+                {
+                        <img src="~/uploads/Machine/@item.Machine_ImageURL" style="width:64px;" class="img-thumbnail" />
+                }
+
                
-            <td>
-                @Html.DisplayFor(modelItem => item.Machine_ImageURL)
             </td>
-            <td>
-                    @Html.ActionLink("Edit", "Edit", new {  id = item.Machine_ID  },htmlAttributes:new{@class="btn btn-info"}) |
-                    @Html.ActionLink("Details", "Details", new {  id=item.Machine_ID  },htmlAttributes:new{@class="btn btn-primary"})|
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new {  id=item.Machine_ID  },htmlAttributes:new{@class="btn btn-secondary"})
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "Details", new {  id=item.Machine_ID  },htmlAttributes:new{@class="btn btn-info"})
+                 </td>
+                <td>
                     @Html.ActionLink("Delete", "Delete", new {  id=item.Machine_ID  },htmlAttributes:new{@class="btn btn-danger"})
-            </td>
+                </td>
         </tr>
 }
     </tbody>
